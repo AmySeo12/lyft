@@ -26,7 +26,7 @@ body{
 
 .absolute{
 	position: absolute;
-    top: 100px;
+    top: 160px;
 }
 
 .button{
@@ -40,10 +40,10 @@ body{
 .button, .button1{
 	border: none;
     color: white;
-    width: 50%;
+    width: 64%;
     height: 57px;
     font-size: 1.6em;
-    margin-left: 20%
+    left: 30px;
 }
 
 .transparencia{
