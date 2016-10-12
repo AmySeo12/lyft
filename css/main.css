@@ -7,6 +7,7 @@
 body{
 	background-image: url("../img/fondo1.jpg");
 	background-size: 100%;
+	background-repeat: no-repeat;
 }
 
 .contenedor{
@@ -25,7 +26,7 @@ body{
 
 .absolute{
 	position: absolute;
-    top: 330px;
+    top: 260px;
 }
 
 .button{
