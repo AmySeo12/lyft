@@ -1,0 +1,46 @@
+*{
+	box-sizing: border-box;
+	margin: 0px;
+	padding: 0px;
+}
+
+body{
+	background-image: url("../img/fondo1.jpg");
+	background-size: 100%;
+}
+
+.contenedor{
+	padding: 0px;
+}
+
+.transparencia{
+	background-color: rgba(0,0,0,0.6);
+}
+
+.img{
+	width: 20%;
+    margin-top: 122px;
+    opacity: 0.6;
+}
+
+.absolute{
+	position: absolute;
+    top: 330px;
+}
+
+.button{
+	background: rebeccapurple;
+}
+
+.button1{
+	background: mediumaquamarine;
+}
+
+.button, .button1{
+	border: none;
+    color: white;
+    width: 50%;
+    height: 57px;
+    font-size: 1.6em;
+    margin-left: 25%
+}
