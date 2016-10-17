@@ -3,16 +3,26 @@ var cargarPagina= function(){
 	$("#telefono").keyup(validarLongitud);
 	$("#siguiente").click(generarCódigo);
 	$("#registrarCodigo").click(registrarCodigo);
-	$(".codigo").keyup(focus);
-	$(".codigo").keypress(validar);
-	$(".codigo").keydown(validarNumeros);
-
-	$(".codigo").first().focus();
+	$(".codigo-r").keyup(focus);
+	$(".codigo-r").keypress(validar);
+	$(".codigo-r").keydown(validarNumeros);
+	$(".codigo-r").first().focus();
+	$("#numero").text(numero);
+	$("#registro").click(registrar);
+	$("#nombres").keyup(mayuscula);
+	$("#apellidos").keyup(mayuscula);
+	
+	if (navigator.geolocation) { 
+		navigator.geolocation.getCurrentPosition(funcionExito, funcionError);
+	}
 }
 
 $(document).ready(cargarPagina);
 var codigoAleartorio = localStorage.getItem("codigo");
 var numero= localStorage.getItem("numeroTelefono");
+var nombre= localStorage.getItem("nombre");
+var apellido= localStorage.getItem("apellido");
+var correo= localStorage.getItem("correo");
 
 var validarNumeros= function(e){
 	var codigo = e.keyCode;
@@ -79,3 +89,65 @@ var validar= function(e){
 		return false;
 	}
 }
+
+var registrar= function(){
+	nombre= localStorage.setItem("nombre", $("#nombres").val());
+	apellido= localStorage.setItem("apellido", $("#apellidos").val());
+	correo= localStorage.setItem("correo", $("#correo").val());
+
+	if((nombres() && email()) && $("#check").is(":checked")){
+		$("#registro").attr("href", "mapa.html");
+		alert("Funciona");
+	}
+}
+
+var mayuscula= function(){
+	if($(this).val().length > 0){
+		$(this).addClass("mayuscula");
+	} else{
+		$(this).removeClass("mayuscula");
+	}
+}
+
+var nombres= function(){
+	var letra = /^[a-zA-Z]+$/;
+	if(($("#nombres, #apellidos").val().length >= 2 && $("#nombres, #apellidos").val().length <= 20) && letra.test($("#nombres, #apellidos").val().trim())){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+var email= function(){
+	var regex= /[\w-\.]{2,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/;
+	if(regex.test($("#correo").val().trim())){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+
+var funcionExito = function(posicion) {
+	var lat = posicion.coords.latitude;
+    var lon = posicion.coords.longitude;
+
+    var mapa = new GMaps({
+	  div: '#mapa',
+	  lat: lat,
+	  lng: lon
+	});
+
+	mapa.addMarker({
+		lat: lat,
+		lng: lon,
+		title: 'Lima',
+		click: function(e) {
+		alert('You clicked in this marker');
+		}
+	});
+};
+
+var funcionError = function (error) {
+	console.log(error);
+};

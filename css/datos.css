@@ -1,3 +1,47 @@
 .nombre{
-	 border: 1px solid #CCCCCC;
+	border: 1px solid #CCCCCC;
+	position: relative;
+	padding:  5px 5px 5px 30px;
+	margin-top: 10px;
+	border-radius: 5px;
+}
+
+
+.nombres{
+	width: 49%;
+}
+
+.icono-1{
+	position: absolute;
+	top: 10px;
+	left: 8px;
+}
+
+.nombres:focus, .correo:focus{
+	outline: -webkit-focus-ring-color auto 0px;
+	outline-style: none;
+	box-shadow: none;
+	border-color: lightgrey;
+}
+
+.nombres, .correo{
+	border: none;
+}
+
+.correo{
+	width: 100%;
+}
+
+.terminos{
+	display: inline-block;
+}
+
+.terminos-condiciones{
+	position: absolute;
+    bottom: 60px;
+    padding: 10px 42px;
+}
+
+.mayuscula{
+	text-transform: uppercase;
 }

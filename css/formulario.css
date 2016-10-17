@@ -42,9 +42,17 @@ header{
 	padding-right: 0px;
 }
 
-.codigo{
+.codigo, .codigo-r{
 	display: inline-block;
-	font-weight: bold;
+    font-weight: bold;
+    width: 9%;
+    border: none;
+}
+
+.codigo-r{
+	border-bottom: 1px solid black;
+	text-align: center;
+    font-size: 1.4em;
 }
 
 .mobile{
@@ -68,6 +76,7 @@ header{
 .siguiente{
 	width: 100%;
 	position: absolute;
+	left: 0px;
     bottom: 0px;
     background: rebeccapurple;
     color: white;
@@ -79,7 +88,7 @@ header{
 	width: 100%;
 }
 
-.mobile:focus {
+.mobile:focus, .codigo-r:focus {
 	outline: -webkit-focus-ring-color auto 0px;
 	outline-style: none;
 	box-shadow: none;
@@ -93,4 +102,15 @@ header{
 
 .pt-0 {
 	padding-top: 0px;
+}
+.contenedor-codigo{
+	text-align: center;
+}
+
+.lab{
+	display: inline-block;
+}
+
+.numero-codigo{
+	text-align: center;
 }

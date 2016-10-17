@@ -22,15 +22,20 @@
 		</header>
 		<div class="container">
 			<div class="nombre">
-				<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+				<span class="glyphicon glyphicon-user icono-1" aria-hidden="true"></span>
+				<input type="text" name="nombre" placeholder="First Name" class="nombres" id="nombres">
+				<input type="text" name="apellido" class="nombres" placeholder="Last Name" id="apellidos">
 			</div>
 			<div class="nombre">
-				<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+				<span class="glyphicon glyphicon-envelope icono-1" aria-hidden="true"></span>
+				<input id="correo" type="text" name="nombre" placeholder="Email" class="correo">
 			</div>
 		</div>
-		<a type="button" class="btn btn-default siguiente">NEXT</a>
+		<div class="terminos-condiciones"><input type="checkbox" name="check" id="check"> <p class="terminos">I agree to Lyft's <a href="#">Terms of Service</a></p></div>
+		<a type="button" class="btn btn-default siguiente" id="registro">NEXT</a>
 
 		<script type="text/javascript" src="js/jquery.js"></script>
 		<script type="text/javascript" src="js/bootstrap.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
 	</body>
 </html>
