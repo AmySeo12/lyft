@@ -3,7 +3,7 @@ var cargarPagina= function(){
 	$("#telefono").keyup(validarLongitud);
 	$("#siguiente").click(generarCódigo);
 	$("#registrarCodigo").click(registrarCodigo);
-	$(".codigo-r").keyup(focus);
+	$(".codigo-r").keyup(focusI);
 	$(".codigo-r").keypress(validar);
 	$(".codigo-r").keydown(validarNumeros);
 	$(".codigo-r").first().focus();
@@ -11,10 +11,14 @@ var cargarPagina= function(){
 	$("#registro").click(registrar);
 	$("#nombres").keyup(mayuscula);
 	$("#apellidos").keyup(mayuscula);
-	
-	if (navigator.geolocation) { 
-		navigator.geolocation.getCurrentPosition(funcionExito, funcionError);
+	$("#icono").click(menu);
+	if(location.href.includes("mapa.html")){
+		if (navigator.geolocation) { 
+			navigator.geolocation.watchPosition(funcionExito, funcionError);
+		}
 	}
+	$("#name-user").text(nombre[0].toUpperCase()+nombre.substring(1));
+	$(".absolute").click(desaparecerMenu);
 }
 
 $(document).ready(cargarPagina);
@@ -50,7 +54,7 @@ var generarCódigo= function(){
 		numero= $("#telefono").val();
 		codigoAleartorio= Math.floor(Math.random()*900)+100;
 		localStorage.setItem("codigo", codigoAleartorio);
-		alert("su código es: LAB-"+ codigoAleartorio);
+		alert("Your code is: LAB-"+ codigoAleartorio);
 		localStorage.setItem("numeroTelefono", numero);
 	}
 }
@@ -61,15 +65,15 @@ var registrarCodigo= function(){
 		if(codigoAleartorio == codigoConfirmacion){
 			$("#registrarCodigo").attr("href", "datos.html");
 		}else{
-			alert("Ingrese su código");
+			alert("Invalid code");
 			$(".codigo").last().focus();
 		}
 	} else {
-		alert("Genera tu código");
+		alert("Generate your code");
 	}
 }
 
-var focus= function(e){
+var focusI= function(e){
 	var codigo = e.keyCode;
 	if(codigo >= 48 && codigo <= 57){
 		$(this).next().focus();
@@ -133,9 +137,10 @@ var funcionExito = function(posicion) {
     var lon = posicion.coords.longitude;
 
     var mapa = new GMaps({
-	  div: '#mapa',
-	  lat: lat,
-	  lng: lon
+    	zoom: 16, 
+		div: '#mapa',
+		lat: lat,
+		lng: lon
 	});
 
 	mapa.addMarker({
@@ -151,3 +156,15 @@ var funcionExito = function(posicion) {
 var funcionError = function (error) {
 	console.log(error);
 };
+
+var menu= function(){
+	$("#menu").animate({width:'toggle'},350);
+	$(".absolute").show();
+	$("#mapa").addClass("peque");
+}
+
+var desaparecerMenu= function(){
+	$("#menu").animate({width:'toggle'},350);
+	$(".absolute").hide();
+	$("#mapa").removeClass("peque");
+}
