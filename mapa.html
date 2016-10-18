@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 		<title>Lyft - Home</title>
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="css/mapa.css">
@@ -14,13 +15,33 @@
 		<div class="absolute none"></div>
 		<div id="mapa">
 		</div>
+		<div>
+			<input type="text" name="buscar" id="buscar" placeholder="Search...">
+			<button id="buscar-lugar">Buscar</button>
+		</div>
 		<div id="menu" class="none">
 			<div class="contenedor">
 				<img src="img/user.jpg" class="user">
 			</div>
 				<span id="name-user"></span>
+				<a href=# class="ver">View Profile</a>
+			<div class="lista" id="map"> 
+				<span class="glyphicon glyphicon-home menu-icono" aria-hidden="true"></span>Home
+			</div>
+			<div class="lista regalo-1">
+				<span class="glyphicon glyphicon-gift regalo" aria-hidden="true"></span>Free Rides
+			</div>
 			<div class="lista">
-				<p class="opcion">Home</p>
+				<span class="glyphicon glyphicon-time menu-icono" aria-hidden="true"></span>Ride History
+			</div>
+			<div class="lista">
+				<span class="glyphicon glyphicon-credit-card menu-icono" aria-hidden="true"></span>Payment
+			</div>
+			<div class="lista">
+				<span class="glyphicon glyphicon-question-sign menu-icono" aria-hidden="true"></span>Help
+			</div>
+			<div class="lista">
+				<span class="glyphicon glyphicon-cog menu-icono" aria-hidden="true"></span>Settings
 			</div>
 		</div>
 

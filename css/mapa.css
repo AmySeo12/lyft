@@ -11,11 +11,11 @@ body{
 }
 
 .logo{
-	position: absolute;
-    top: 100px;
-    left: 37.5%;
+    position: absolute;
+    top: 88px;
+    left: 44.5%;
     z-index: 1;
-    width: 25%;
+    width: 19%;
 }
 
 .icono-1{
@@ -28,7 +28,7 @@ body{
 
 .absolute{
 	background-color: rgba(0,0,0,.6);
-	z-index: 1;
+	z-index: 2;
 }
 
 .none{
@@ -39,34 +39,35 @@ body{
 	position: absolute;
 	top: 0;
 	bottom: 0px;
-	right: 25%;
+	right: 40%;
 	left: 0;
 	background-color: white;
-	z-index: 2;
+	z-index: 3;
 }
 
 .contenedor{
-	border-radius: 50%;
-    width: 52%;
-    height: 21%;
-    margin: 73px 24% 10px;
-    border: 1px solid gray;
-    padding: 19px;
+    border-radius: 50%;
+    width: 44%;
+    height: 15%;
+    margin: 28px 29% 8px;
+    border: 1px solid #E3E4E8;
+    padding: 6px;
 }
 
 .user{
 	width: 100%;
 	height: 100%;
 	border-radius: 50%;
-	border: 1px solid gray;
+	border: 1px solid #E3E4E8;
 }
 
 .lista{
-	padding: 40px;
+    padding: 14px 0px;
     border-top: 1px solid gray;
     border-bottom: 1px solid gray;
     width: 80%;
     margin: 0 auto;
+    font-size: 1.3em;
 }
 
 .opcion{
@@ -74,20 +75,20 @@ body{
 }
 
 #name-user{
-	display: block;
+    display: block;
     text-align: center;
-    font-size: 5em;
+    font-size: 1.5em;
 }
 
 .contenedor-1{
 	position: absolute;
     z-index: 1;
-    top: 100px;
-    left: 70px;
+    top: 77px;
+    left: 35px;
     width: 18%;
-    height: 176px;
+    height: 70px;
     padding: 0px;
-    border: 17px solid white;
+    border: 5px solid white;
     border-radius: 50%;
 }
 
@@ -99,4 +100,49 @@ body{
 	width: 89%;
     height: 92%;
     margin: 69px auto;
+}
+
+.ver{
+    color: gray;
+    display: block;
+    text-align: center;
+    font-size: 1.2em;
+    margin-bottom: 14px;
+}
+
+.menu-icono{
+    color: #00a86b;
+}
+
+.regalo-1{
+	color: #FA61B8
+}
+
+.regalo, .menu-icono{
+	margin-right: 15px;
+}
+
+#buscar-lugar{
+    position: absolute;
+    z-index: 1;
+    bottom: 5%;
+    left: 66%;
+    height: 6%;
+    font-size: 1.2em;
+    background: #00a86b;
+    padding: 4px 3%;
+    font-weight: bold;
+    border: none;
+}
+
+#buscar{
+    position: absolute;
+    bottom: 5%;
+    z-index: 1;
+    width: 55%;
+    height: 6%;
+    font-size: 1em;
+    left: 11%;
+    padding: 11px;
+    border: 0px;
 }

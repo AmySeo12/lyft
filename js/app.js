@@ -18,7 +18,9 @@ var cargarPagina= function(){
 		}
 	}
 	$("#name-user").text(nombre[0].toUpperCase()+nombre.substring(1));
-	$(".absolute").click(desaparecerMenu);
+	$(".absolute, #map").click(desaparecerMenu);
+	$(".resend-code").click(generarNuevoCodigo);
+	$("#buscar-lugar").click(buscar);
 }
 
 $(document).ready(cargarPagina);
@@ -27,6 +29,7 @@ var numero= localStorage.getItem("numeroTelefono");
 var nombre= localStorage.getItem("nombre");
 var apellido= localStorage.getItem("apellido");
 var correo= localStorage.getItem("correo");
+var mapa;
 
 var validarNumeros= function(e){
 	var codigo = e.keyCode;
@@ -101,7 +104,6 @@ var registrar= function(){
 
 	if((nombres() && email()) && $("#check").is(":checked")){
 		$("#registro").attr("href", "mapa.html");
-		alert("Funciona");
 	}
 }
 
@@ -118,7 +120,7 @@ var nombres= function(){
 	if(($("#nombres, #apellidos").val().length >= 2 && $("#nombres, #apellidos").val().length <= 20) && letra.test($("#nombres, #apellidos").val().trim())){
 		return true;
 	}else{
-		return false;
+		return false;		
 	}
 }
 
@@ -136,14 +138,15 @@ var funcionExito = function(posicion) {
 	var lat = posicion.coords.latitude;
     var lon = posicion.coords.longitude;
 
-    var mapa = new GMaps({
-    	zoom: 16, 
-		div: '#mapa',
+    mapa = new GMaps({ 
+		el: '#mapa',
 		lat: lat,
-		lng: lon
+		lng: lon,
+		zoom: 16,
+		enableNewStyle: true
 	});
 
-	mapa.addMarker({
+	var marker= mapa.addMarker({
 		lat: lat,
 		lng: lon,
 		title: 'Lima',
@@ -151,6 +154,8 @@ var funcionExito = function(posicion) {
 		alert('You clicked in this marker');
 		}
 	});
+
+	mapa.setCenter(lat, lon);
 };
 
 var funcionError = function (error) {
@@ -167,4 +172,27 @@ var desaparecerMenu= function(){
 	$("#menu").animate({width:'toggle'},350);
 	$(".absolute").hide();
 	$("#mapa").removeClass("peque");
+}
+
+var generarNuevoCodigo= function(){
+	codigoAleartorio= Math.floor(Math.random()*900)+100;
+	localStorage.setItem("codigo", codigoAleartorio);
+	alert("Your code is: LAB-"+ codigoAleartorio);
+}
+
+var buscar= function(){
+	GMaps.geocode({
+		address: $('#buscar').val(),
+		callback: function(results, status) {
+			if (status == 'OK') {
+				var latlng = results[0].geometry.location;
+				mapa.setCenter(latlng.lat(), latlng.lng());
+				mapa.addMarker({
+				lat: latlng.lat(),
+				lng: latlng.lng()
+				});
+			}
+		}
+	});
+	$('#buscar').val("");
 }
