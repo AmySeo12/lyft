@@ -180,7 +180,8 @@ var generarNuevoCodigo= function(){
 	alert("Your code is: LAB-"+ codigoAleartorio);
 }
 
-var buscar= function(){
+var buscar= function(e){
+	e.preventDefault();
 	GMaps.geocode({
 		address: $('#buscar').val(),
 		callback: function(results, status) {
