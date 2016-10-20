@@ -1,7 +1,7 @@
 var cargarPagina= function(){
 	$("#telefono").keydown(validarNumeros);
 	$("#telefono").keyup(validarLongitud);
-	$("#siguiente").click(generarCódigo);
+	$("#siguiente").click(generarCodigo);
 	$("#registrarCodigo").click(registrarCodigo);
 	$(".codigo-r").keyup(focusI);
 	$(".codigo-r").keypress(validar);
@@ -11,16 +11,22 @@ var cargarPagina= function(){
 	$("#registro").click(registrar);
 	$("#nombres").keyup(mayuscula);
 	$("#apellidos").keyup(mayuscula);
-	$("#icono").click(menu);
+	$("#icono, .menu").click(menu);
 	if(location.href.includes("mapa.html")){
 		if (navigator.geolocation) { 
-			navigator.geolocation.watchPosition(funcionExito, funcionError);
+			navigator.geolocation.getCurrentPosition(funcionExito, funcionError);
 		}
 	}
 	$("#name-user").text(nombre[0].toUpperCase()+nombre.substring(1));
 	$(".absolute, #map").click(desaparecerMenu);
 	$(".resend-code").click(generarNuevoCodigo);
 	$("#buscar-lugar").click(buscar);
+	$("#nombre-apellido").text(nombre[0].toUpperCase()+nombre.substring(1)+" "+ apellido[0].toUpperCase()+apellido.substring(1));
+	$("#fecha").text(inicio);
+	$(".guardar").click(guardarDatos);
+	if(domicilio != null){
+		cambioInformación();
+	}
 }
 
 $(document).ready(cargarPagina);
@@ -30,6 +36,11 @@ var nombre= localStorage.getItem("nombre");
 var apellido= localStorage.getItem("apellido");
 var correo= localStorage.getItem("correo");
 var mapa;
+var inicio= localStorage.getItem("fecha");
+var mapa;
+var domicilio= localStorage.getItem("domicilio");
+var musica= localStorage.getItem("musica");
+var usuario= localStorage.getItem("usuario");
 
 var validarNumeros= function(e){
 	var codigo = e.keyCode;
@@ -49,7 +60,7 @@ var validarLongitud= function(){
 	}
 }
 
-var generarCódigo= function(){
+var generarCodigo= function(){
 	if (codigoAleartorio !== null) {
 		localStorage.removeItem("codigo");
 	}
@@ -105,6 +116,11 @@ var registrar= function(){
 	if((nombres() && email()) && $("#check").is(":checked")){
 		$("#registro").attr("href", "mapa.html");
 	}
+
+	var meses = new Array ("January","February","March","April","May","June","July","August","September","October","November","December");
+	var f=new Date();
+	var fecha= "JOINED "+ meses[f.getMonth()].toUpperCase() + " " + f.getFullYear();
+	inicio= localStorage.setItem("fecha", fecha);
 }
 
 var mayuscula= function(){
@@ -196,4 +212,31 @@ var buscar= function(e){
 		}
 	});
 	$('#buscar').val("");
+}
+
+var guardarDatos= function(){
+	var dom= $("#dom").val();
+	var music= $("#musica").val();
+	var usu= $("#usu").val();
+	localStorage.setItem("domicilio",dom);
+	localStorage.setItem("musica", music);
+	localStorage.setItem("usuario",usu);
+
+	cerrarEditar();
+
+	$("#vivir").val("");
+
+	cambioInformación();
+}
+
+var cambioInformación= function(){
+	if(domicilio.length > 0){
+		$("#vivir").text(domicilio[0].toUpperCase()+domicilio.substring(1));
+	}
+	if(musica.length > 0){
+		$("#musica-favorita").text(musica[0].toUpperCase()+musica.substring(1));
+	}
+	if(usuario.length > 0){
+		$("#hobbie").text(usuario[0].toUpperCase()+usuario.substring(1));
+	}
 }

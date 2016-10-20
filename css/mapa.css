@@ -86,7 +86,11 @@ body{
     top: 77px;
     left: 35px;
     width: 18%;
+<<<<<<< HEAD
     height: 70px;
+=======
+    height: 60px;
+>>>>>>> master
     padding: 0px;
     border: 5px solid white;
     border-radius: 50%;
@@ -115,7 +119,11 @@ body{
 }
 
 .regalo-1{
+<<<<<<< HEAD
 	color: #FA61B8
+=======
+	color: #FA61B8;
+>>>>>>> master
 }
 
 .regalo, .menu-icono{

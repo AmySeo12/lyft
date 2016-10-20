@@ -1,0 +1,13 @@
+header{
+	border-bottom: 1px solid gainsboro;
+}
+
+.regresar{
+    color: black;
+    margin-top: 10px;
+    font-size: 1.2em;
+}
+
+.centrar{
+	margin-left: 10px;
+}
