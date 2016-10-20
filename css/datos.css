@@ -38,10 +38,14 @@
 
 .terminos-condiciones{
 	position: absolute;
-    bottom: 60px;
+    bottom: 7%;
     padding: 10px 42px;
 }
 
 .mayuscula{
 	text-transform: uppercase;
+}
+
+.borde-rojo{
+	border: 1px solid red;
 }

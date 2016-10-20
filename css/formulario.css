@@ -114,3 +114,11 @@ header{
 .numero-codigo{
 	text-align: center;
 }
+
+.resend-code{
+    border: 1px solid black;
+    background-color: transparent;
+    padding: 10px;
+    font-size: 1.2em;
+    margin: 20px 30%;
+}

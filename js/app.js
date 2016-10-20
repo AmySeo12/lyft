@@ -1,7 +1,7 @@
 var cargarPagina= function(){
 	$("#telefono").keydown(validarNumeros);
 	$("#telefono").keyup(validarLongitud);
-	$("#siguiente").click(generarCódigo);
+	$("#siguiente").click(generarCodigo);
 	$("#registrarCodigo").click(registrarCodigo);
 	$(".codigo-r").keyup(focusI);
 	$(".codigo-r").keypress(validar);
@@ -11,14 +11,22 @@ var cargarPagina= function(){
 	$("#registro").click(registrar);
 	$("#nombres").keyup(mayuscula);
 	$("#apellidos").keyup(mayuscula);
-	$("#icono").click(menu);
+	$("#icono, .menu").click(menu);
 	if(location.href.includes("mapa.html")){
 		if (navigator.geolocation) { 
-			navigator.geolocation.watchPosition(funcionExito, funcionError);
+			navigator.geolocation.getCurrentPosition(funcionExito, funcionError);
 		}
 	}
 	$("#name-user").text(nombre[0].toUpperCase()+nombre.substring(1));
-	$(".absolute").click(desaparecerMenu);
+	$(".absolute, #map").click(desaparecerMenu);
+	$(".resend-code").click(generarNuevoCodigo);
+	$("#buscar-lugar").click(buscar);
+	$("#nombre-apellido").text(nombre[0].toUpperCase()+nombre.substring(1)+" "+ apellido[0].toUpperCase()+apellido.substring(1));
+	$("#fecha").text(inicio);
+	$(".guardar").click(guardarDatos);
+	if(domicilio != null){
+		cambioInformación();
+	}
 }
 
 $(document).ready(cargarPagina);
@@ -27,6 +35,11 @@ var numero= localStorage.getItem("numeroTelefono");
 var nombre= localStorage.getItem("nombre");
 var apellido= localStorage.getItem("apellido");
 var correo= localStorage.getItem("correo");
+var inicio= localStorage.getItem("fecha");
+var mapa;
+var domicilio= localStorage.getItem("domicilio");
+var musica= localStorage.getItem("musica");
+var usuario= localStorage.getItem("usuario");
 
 var validarNumeros= function(e){
 	var codigo = e.keyCode;
@@ -46,7 +59,7 @@ var validarLongitud= function(){
 	}
 }
 
-var generarCódigo= function(){
+var generarCodigo= function(){
 	if (codigoAleartorio !== null) {
 		localStorage.removeItem("codigo");
 	}
@@ -101,8 +114,12 @@ var registrar= function(){
 
 	if((nombres() && email()) && $("#check").is(":checked")){
 		$("#registro").attr("href", "mapa.html");
-		alert("Funciona");
 	}
+
+	var meses = new Array ("January","February","March","April","May","June","July","August","September","October","November","December");
+	var f=new Date();
+	var fecha= "JOINED "+ meses[f.getMonth()].toUpperCase() + " " + f.getFullYear();
+	inicio= localStorage.setItem("fecha", fecha);
 }
 
 var mayuscula= function(){
@@ -118,7 +135,7 @@ var nombres= function(){
 	if(($("#nombres, #apellidos").val().length >= 2 && $("#nombres, #apellidos").val().length <= 20) && letra.test($("#nombres, #apellidos").val().trim())){
 		return true;
 	}else{
-		return false;
+		return false;		
 	}
 }
 
@@ -136,14 +153,15 @@ var funcionExito = function(posicion) {
 	var lat = posicion.coords.latitude;
     var lon = posicion.coords.longitude;
 
-    var mapa = new GMaps({
-    	zoom: 16, 
-		div: '#mapa',
+    mapa = new GMaps({ 
+		el: '#mapa',
 		lat: lat,
-		lng: lon
+		lng: lon,
+		zoom: 16,
+		enableNewStyle: true
 	});
 
-	mapa.addMarker({
+	var marker= mapa.addMarker({
 		lat: lat,
 		lng: lon,
 		title: 'Lima',
@@ -151,6 +169,8 @@ var funcionExito = function(posicion) {
 		alert('You clicked in this marker');
 		}
 	});
+
+	mapa.setCenter(lat, lon);
 };
 
 var funcionError = function (error) {
@@ -167,4 +187,55 @@ var desaparecerMenu= function(){
 	$("#menu").animate({width:'toggle'},350);
 	$(".absolute").hide();
 	$("#mapa").removeClass("peque");
+}
+
+var generarNuevoCodigo= function(){
+	codigoAleartorio= Math.floor(Math.random()*900)+100;
+	localStorage.setItem("codigo", codigoAleartorio);
+	alert("Your code is: LAB-"+ codigoAleartorio);
+}
+
+var buscar= function(e){
+	e.preventDefault();
+	GMaps.geocode({
+		address: $('#buscar').val(),
+		callback: function(results, status) {
+			if (status == 'OK') {
+				var latlng = results[0].geometry.location;
+				mapa.setCenter(latlng.lat(), latlng.lng());
+				mapa.addMarker({
+				lat: latlng.lat(),
+				lng: latlng.lng()
+				});
+			}
+		}
+	});
+	$('#buscar').val("");
+}
+
+var guardarDatos= function(){
+	var dom= $("#dom").val();
+	var music= $("#musica").val();
+	var usu= $("#usu").val();
+	localStorage.setItem("domicilio",dom);
+	localStorage.setItem("musica", music);
+	localStorage.setItem("usuario",usu);
+
+	cerrarEditar();
+
+	$("#vivir").val("");
+
+	cambioInformación();
+}
+
+var cambioInformación= function(){
+	if(domicilio.length > 0){
+		$("#vivir").text(domicilio[0].toUpperCase()+domicilio.substring(1));
+	}
+	if(musica.length > 0){
+		$("#musica-favorita").text(musica[0].toUpperCase()+musica.substring(1));
+	}
+	if(usuario.length > 0){
+		$("#hobbie").text(usuario[0].toUpperCase()+usuario.substring(1));
+	}
 }
