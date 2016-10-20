@@ -17,15 +17,37 @@ var cargarPagina= function(){
 			navigator.geolocation.getCurrentPosition(funcionExito, funcionError);
 		}
 	}
-	$("#name-user").text(nombre[0].toUpperCase()+nombre.substring(1));
+	if(location.href.includes("mapa.html")){	
+		$("#name-user").text(nombre[0].toUpperCase()+nombre.substring(1));
+	}
 	$(".absolute, #map").click(desaparecerMenu);
 	$(".resend-code").click(generarNuevoCodigo);
 	$("#buscar-lugar").click(buscar);
-	$("#nombre-apellido").text(nombre[0].toUpperCase()+nombre.substring(1)+" "+ apellido[0].toUpperCase()+apellido.substring(1));
+	if(location.href.includes("perfil.html")){
+		$("#nombre-apellido").text(nombre[0].toUpperCase()+nombre.substring(1)+" "+ apellido[0].toUpperCase()+apellido.substring(1));
+	}
 	$("#fecha").text(inicio);
 	$(".guardar").click(guardarDatos);
 	if(domicilio != null){
 		cambioInformación();
+	}
+	$("#subir").click(function(e) {
+		$("#foto").click();
+	});
+	$("#foto").change(function(){
+    	readURL(this);
+	});
+
+	if(imagenPerfil != null){
+		if(location.href.includes("mapa.html")){
+			$("#user").attr("src", imagenPerfil);
+		}
+		if(location.href.includes("perfil.html")){
+			$(".foto").attr("src", imagenPerfil);
+		}
+		if(location.href.includes("editprofile.html")){
+			$(".user").attr("src", imagenPerfil);
+		}
 	}
 }
 
@@ -41,6 +63,7 @@ var mapa;
 var domicilio= localStorage.getItem("domicilio");
 var musica= localStorage.getItem("musica");
 var usuario= localStorage.getItem("usuario");
+var imagenPerfil= localStorage.getItem("imagen");
 
 var validarNumeros= function(e){
 	var codigo = e.keyCode;
@@ -171,6 +194,25 @@ var funcionExito = function(posicion) {
 		}
 	});
 
+	var content = $("#direccion");
+    var dir = "";
+    var latlng = new google.maps.LatLng(lat, lon);
+    geocoder = new google.maps.Geocoder();
+    geocoder.geocode({"latLng": latlng}, function(resultado, estado){
+        if (estado == google.maps.GeocoderStatus.OK){
+            if (resultado[0]){
+                dir = resultado[0].formatted_address;
+            }
+            else{
+                dir = "No se ha podido obtener ninguna dirección en esas coordenadas.";
+            }
+        }
+        else{
+            dir = "El Servicio de Codificación Geográfica ha fallado con el siguiente error: " + estado;
+        }
+        content.text(dir);
+    });
+
 	mapa.setCenter(lat, lon);
 };
 
@@ -239,4 +281,18 @@ var cambioInformación= function(){
 	if(usuario.length > 0){
 		$("#hobbie").text(usuario[0].toUpperCase()+usuario.substring(1));
 	}
+}
+var readURL= function(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#img').attr('src', e.target.result);
+            localStorage.setItem("imagen", e.target.result)
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+var llamar= function(){
+	readURL(this);
 }

@@ -11,3 +11,24 @@ header{
 .centrar{
 	margin-left: 10px;
 }
+
+.imagen{
+    width: 80%;
+    margin: 18% auto;
+    display: block;
+}
+
+.subir{
+	width: 100%;
+    padding: 15px;
+    color: white;
+    border: none;
+    background-color: mediumpurple;
+    position: absolute;
+    bottom: 0px;
+    font-size: 1.5em;
+}
+
+input[type="file"]{
+	display: none;
+}
